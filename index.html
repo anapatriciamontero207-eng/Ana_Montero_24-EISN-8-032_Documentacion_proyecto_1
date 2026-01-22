@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Patricia - Portafolio Ciberpunk</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for futuristic feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000; /* Black background for dark mode */
+            --bg-secondary: #0a0a0a; /* Darker shade */
+            --text-primary: #ffffff; /* White text */
+            --text-secondary: #00ffff; /* Cyan neon */
+            --accent-primary: #00bfff; /* Sky blue neon */
+            --accent-secondary: #ffff00; /* Yellow neon */
+            --card-glow: 0 0 20px rgba(0, 191, 255, 0.5); /* Glow effect */
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Light mode overrides */
+        body.light-mode {
+            --bg-primary: #ffffff; /* White background */
+            --bg-secondary: #f0f0f0; /* Light gray */
+            --text-primary: #000000; /* Black text */
+            --text-secondary: #333333; /* Dark gray */
+            --accent-primary: #0000ff; /* Blue accent */
+            --accent-secondary: #ff0000; /* Red accent */
+            --card-glow: 0 0 10px rgba(0, 0, 255, 0.3);
+            --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', monospace;
+            color: var(--text-secondary);
+            text-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .navbar {
+            background-color: var(--bg-secondary) !important;
+            border-bottom: 1px solid var(--accent-primary);
+            box-shadow: var(--card-glow);
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-secondary) !important;
+            text-shadow: 0 0 5px var(--accent-secondary);
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-primary) !important;
+            text-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .dark-mode-toggle {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: var(--card-glow);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%2300ffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffff00" stop-opacity="0"/></radialGradient></defs><circle cx="20" cy="20" r="2" fill="url(%23g)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-primary);
+            box-shadow: var(--card-glow);
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--accent-primary);
+            box-shadow: var(--card-shadow), var(--card-glow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: var(--text-primary);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow), 0 0 30px var(--accent-primary);
+        }
+
+        .card-title {
+            color: var(--text-secondary);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .filter-btn {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--accent-primary);
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-primary);
+            color: var(--text-primary);
+            box-shadow: var(--card-glow);
+        }
+
+        .tech-stack .card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .tech-stack i {
+            font-size: 3rem;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--accent-secondary);
+        }
+
+        .projects .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .experience-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+        }
+
+        .experience-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .experience-card {
+            flex: 1 1 300px;
+            max-width: 350px;
+        }
+
+        .footer {
+            background-color: var(--bg-secondary);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--accent-primary);
+        }
+
+        .social-icons a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .back-to-top {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: var(--card-glow);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 50px 0;
+            }
+            .hero-image {
+                width: 150px;
+                height: 150px;
+            }
+            .experience-cards {
+                justify-content: center;
+            }
+        }
+
+        /* Hide filtered cards */
+        .project-card.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-code"></i> Ana Patricia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stack">Stack</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experiencia</a></li>
+                    <li class="nav-item"><button class="btn dark-mode-toggle ms-2" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Modo Dark</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocKJM2HOym5Y9lE-cBlKvmdVobsfIcH5r7GFZTi31lNWDC-RRM04=s400-c" alt="Foto de Perfil" class="hero-image"> <!-- Reemplaza con URL real -->
+            <h1 class="display-4">Ana Patricia</h1>
+            <p class="lead">Frontend Expert | Diseñadora UI/UX Minimalista y Moderna 🚀</p>
+            <p>Especialista en crear experiencias digitales futuristas con un toque ciberpunk. Basada en Santo Domingo, DO.</p>
+        </div>
+    </section>
+
+    <!-- Stack Tecnológico -->
+    <section id="stack" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Stack Tecnológico <i class="fas fa-microchip"></i></h2>
+            <div class="row tech-stack">
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fab fa-html5"></i>
+                            <h5 class="card-title">HTML5</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fab fa-css3-alt"></i>
+                            <h5 class="card-title">CSS3</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fab fa-js-square"></i>
+                            <h5 class="card-title">JavaScript</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fab fa-bootstrap"></i>
+                            <h5 class="card-title">Bootstrap</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-paint-brush"></i>
+                            <h5 class="card-title">UI/UX</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h5 class="card-title">Responsive</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="projects" class="py-5" style="background-color: var(--bg-primary);">
+        <div class="container">
+            <h2 class="text-center mb-5">Proyectos <i class="fas fa-project-diagram"></i></h2>
+            <div class="text-center mb-4">
+                <button class="btn filter-btn active" data-filter="all">Todos</button>
+                <button class="btn filter-btn" data-filter="web">Web</button>
+                <button class="btn filter-btn" data-filter="app">App</button>
+                <button class="btn filter-btn" data-filter="diseno">Diseño</button>
+            </div>
+            <div class="row">
+                <!-- Web Projects -->
+                <div class="col-md-4 mb-4 project-card" data-category="web">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/1200x/89/fd/2c/89fd2c8829f6c0dcf4ab1a4512104d2b.jpg" class="card-img-top" alt="Web 1"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Web 1</h5>
+                            <p class="card-text">Descripción breve del proyecto web innovador.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="web">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/76/55/87/765587e389328e851fb9b1a5528fec76.jpg" class="card-img-top" alt="Web 2"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Web 2</h5>
+                            <p class="card-text">Descripción breve del proyecto web innovador.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="web">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/05/be/4a/05be4ae3c91cf1eb24f748ade3bc31c7.jpg" class="card-img-top" alt="Web 3"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Web 3</h5>
+                            <p class="card-text">Descripción breve del proyecto web innovador.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- App Projects -->
+                <div class="col-md-4 mb-4 project-card" data-category="app">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/cb/65/e8/cb65e80c61f2e534ca47d11cd78fc5fd.jpg" class="card-img-top" alt="App 1"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto App 1</h5>
+                            <p class="card-text">Descripción breve de la app móvil futurista.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="app">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/b8/cc/33/b8cc33f4bdfaa8692aaaa9a17c3f786e.jpg" class="card-img-top" alt="App 2"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto App 2</h5>
+                            <p class="card-text">Descripción breve de la app móvil futurista.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="app">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/ad/18/58/ad18584a5170ff8af814f7253ae9ae17.jpg" class="card-img-top" alt="App 3"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto App 3</h5>
+                            <p class="card-text">Descripción breve de la app móvil futurista.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Diseño Projects -->
+                <div class="col-md-4 mb-4 project-card" data-category="diseno">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/28/e0/53/28e053405c09918be7eaa537af785de2.jpg" class="card-img-top" alt="Diseño 1"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Diseño 1</h5>
+                            <p class="card-text">Descripción breve del diseño UI/UX ciberpunk.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="diseno">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/736x/24/a4/61/24a461fe2f3066ac83fd4c6d89febfcd.jpg" class="card-img-top" alt="Diseño 2"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Diseño 2</h5>
+                            <p class="card-text">Descripción breve del diseño UI/UX ciberpunk.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 project-card" data-category="diseno">
+                    <div class="card">
+                        <img src="https://i.pinimg.com/1200x/7e/a8/b9/7ea8b985b6938680d0466040bef7b557.jpg" class="card-img-top" alt="Diseño 3"> <!-- Reemplaza con URL real -->
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto Diseño 3</h5>
+                            <p class="card-text">Descripción breve del diseño UI/UX ciberpunk.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiencia Laboral -->
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Experiencia Laboral <i class="fas fa-briefcase"></i></h2>
+            <div class="experience-cards">
+                <!-- Asumiendo 3 experiencias; si hay menos, remover divs y el flex se ajusta automáticamente -->
+                <div class="card experience-card">
+                    <img src="https://i.pinimg.com/1200x/25/76/47/25764709c464f00455bc32957ad8033a.jpg" class="card-img-top" alt="Trabajo 1"> <!-- Reemplaza con URL real -->
+                    <div class="card-body">
+                        <h5 class="card-title">Trabajo/Experiencia 1</h5>
+                        <p class="Servicio al cliente
+                        ">Descripción de la experiencia laboral en frontend y UI/UX.</p>
+                    </div>
+                </div>
+                <div class="card experience-card">
+                    <img src="https://i.pinimg.com/1200x/d5/a8/90/d5a89077d030ef6196b5d947d7a210fd.jpg" class="card-img-top" alt="Trabajo 2"> <!-- Reemplaza con URL real -->
+                    <div class="card-body">
+                        <h5 class="card-title">Trabajo/Experiencia 2</h5>
+                        <p class="card-text">Descripción de la experiencia laboral en frontend y UI/UX.</p>
+                    </div>
+                </div>
+                <div class="card experience-card">
+                    <img src="https://i.pinimg.com/736x/63/20/13/63201366d4a73aa839e8acc56159793e.jpg" class="card-img-top" alt="Trabajo 3"> <!-- Reemplaza con URL real -->
+                    <div class="card-body">
+                        <h5 class="card-title">Trabajo/Experiencia 3</h5>
+                        <p class="card-text">Descripción de la experiencia laboral en frontend y UI/UX.</p>
+                    </div>
+                </div>
+                <!-- Si solo hay 1 o 2, comenta o remueve los divs extras; el CSS flex los centrará -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="mt-3">&copy; 2026 Ana Patricia. Todos los derechos reservados. 🌌</p>
+            <button class="back-to-top" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i> Volver Arriba</button>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('.dark-mode-toggle i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+                document.querySelector('.dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+            } else {
+                icon.className = 'fas fa-moon';
+                document.querySelector('.dark-mode-toggle').innerHTML = '<i class="fas fa-moon"></i> Modo Dark';
+            }
+        }
+
+        // Project Filters
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                document.querySelectorAll('.project-card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll for back to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navbar offset for fixed top
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
